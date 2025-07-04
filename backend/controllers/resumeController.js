@@ -133,26 +133,23 @@ export const deleteResume = async (req, res) => {
             return res.status(404).json({ message: 'Resume not found' });
         }
         const uploadsFolder = path.join(process.cwd(), 'uploads');
+        // Delete thumbnail if exists
         if (resume.thumbnailLink) {
             const oldthumbnail = path.join(uploadsFolder, path.basename(resume.thumbnailLink));
             if (fs.existsSync(oldthumbnail)) {
                 fs.unlinkSync(oldthumbnail);
             }
         }
+        // Delete profile preview if exists
         if (resume.profileInfo?.profilePreviewUrl) {
             const oldProfile = path.join(uploadsFolder, path.basename(resume.profileInfo.profilePreviewUrl));
             if (fs.existsSync(oldProfile)) {
                 fs.unlinkSync(oldProfile);
             }
-            const deleted = await Resume.findByIdAndDelete({
-                _id: req.params.resumeId,
-                userId: req.user._id // <-- FIXED
-            });
-            if (!deleted) {
-                return res.status(404).json({ message: 'Resume not found' });
-            }
-            res.json({ message: 'Resume deleted successfully' });
         }
+        // Delete the resume document
+        await Resume.deleteOne({ _id: req.params.id, userId: req.user._id });
+        res.json({ message: 'Resume deleted successfully' });
     } catch (error) {
         return res.status(500).json({ message: 'Error deleting resume', error: error.message });
     }

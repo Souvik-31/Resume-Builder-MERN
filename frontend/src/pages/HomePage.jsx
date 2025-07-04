@@ -5,6 +5,9 @@ import { HomePageStyles } from '../assets/dummystyle.js';
 import { UserContext } from '../context/UserContext.jsx';
 import { Menu, X } from 'lucide-react';
 import { ProfileInfoCard } from '../components/cards.jsx';
+import Login from '../components/Login.jsx';
+import Modal from '../components/Modal.jsx';
+import Signup from '../components/SignUp.jsx';
 
 
 const HomePage = () => {
@@ -174,6 +177,18 @@ const HomePage = () => {
             <footer className="text-center py-6 text-gray-500 text-sm border-t">
                 © {new Date().getFullYear()} ResumeCraft. All rights reserved.
             </footer>
+
+            {/* Auth Modal */}
+            <Modal isOpen={openAuthModal} onClose={() => {
+                setOpenAuthModal(false)
+                setCurrentPage('login')    
+            }} hideHeader>
+                <div>
+                    {currentPage === 'login' && <Login setCurrentPage={setCurrentPage} />}
+                    {currentPage === 'signup' && <Signup setCurrentPage={setCurrentPage} />}
+                </div>
+            </Modal>
+
         </div>
     )
 }
