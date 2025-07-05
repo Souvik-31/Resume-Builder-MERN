@@ -1,5 +1,5 @@
 import React from "react";
-import Input from "./inputs.jsx";
+import Input from "./Inputs.jsx";
 import { RatingInput } from "./ResumeSection";
 import { Plus, Trash2 } from "lucide-react";
 import {

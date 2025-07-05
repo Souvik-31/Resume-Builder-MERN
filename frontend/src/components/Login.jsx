@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext.jsx';
 import axiosInstance from '../utils/axiosInstance.js';
 import { API_PATHS } from '../utils/apiPaths.js';
-import Input from './inputs.jsx';
+import Input from './Inputs.jsx';
 
 const Login = ({
     setCurrentPage

@@ -3,7 +3,7 @@ import { authStyles as styles } from '../assets/dummystyle.js'
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext.jsx';
-import Input from './inputs.jsx';
+import Input from './Inputs.jsx';
 import axiosInstance from '../utils/axiosInstance.js';
 import { API_PATHS } from '../utils/apiPaths.js';
 

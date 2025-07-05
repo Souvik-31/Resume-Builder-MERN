@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import DashboardLayout from './DashboardLayout'
 import { buttonStyles, containerStyles, statusStyles, iconStyles } from '../assets/dummystyle'
-import { TitleInput } from './inputs.jsx'
+import { TitleInput } from './Inputs.jsx'
 import { useState, useRef, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import axiosInstance from '../utils/axiosInstance'
