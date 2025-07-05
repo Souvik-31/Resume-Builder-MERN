@@ -24,7 +24,7 @@ app.use('/api/resume', resumeRoutes);
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'),{
   setHeaders: (res, path) => {
-    res.set('Access-Control-Allow-Origin', 'http://localhost:5173'); // Adjust the origin as needed
+    res.set('Access-Control-Allow-Origin', 'https://resumecraft-8b31.onrender.com/'); // Adjust the origin as needed
   }
 }));
 
