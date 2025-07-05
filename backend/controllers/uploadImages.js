@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import Resume from '../models/resumeModel.js';
 import upload from '../middleware/uploadMiddleware.js';
+import { error } from 'console';
+
 
 export const uploadResumeImages = async (req, res) => {
     try {
@@ -15,7 +17,7 @@ export const uploadResumeImages = async (req, res) => {
 
             const resumeId = req.params.id;
             const resume = await Resume.findOne(
-                { _id: resumeId, userId: req.userId }
+                { _id: resumeId, userId: req.user._id }
             );
             if (!resume) {
                 return res.status(404).json({ message: "Resume not found" });
@@ -31,10 +33,11 @@ export const uploadResumeImages = async (req, res) => {
             if(newThumbnail) {
                 if(resume.thumbnailLink) {
                     const oldThumbnail = path.join(uploadsFolder, path.basename(resume.thumbnailLink));
-                    if (fs.existsSync(oldThumbnailPath)) {
-                        fs.unlinkSync(oldThumbnailPath);
+                    if (fs.existsSync(oldThumbnail)) {
+                        fs.unlinkSync(oldThumbnail);
                     }
                 }
+                resume.thumbnailLink = `${baseUrl}/uploads/${newThumbnail.filename}`;
             }
 
             // Profile Preview Image
@@ -56,6 +59,7 @@ export const uploadResumeImages = async (req, res) => {
         })
     }
     catch (error) {
+        console.error("Error uploading images:", error);
         res.status(500).json({ message: "Failed to upload images", error: error.message });
     }
 }
